@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "id": "1000",
+      "image": "carousel-1.jpg",
+      "headline": "Fastest Way to Achieve Success",
+      "description": "We 100% Responsibility for Everything in Your Business - Only by taking full responsibility for your business can you make positive changes. This approach means no finger pointing, no playing the victim, and no blaming your life on your circumstances. Forget blaming others. Instead, take action.",
+      "buttonicon": "fas fa-road",
+      "buttontext": "Detail"
+    },
+    {
+      "id": "1001",
+      "image": "carousel-2.jpg",
+      "headline": "Your Success Our Achievement",
+      "description": "We will give you some success solutions that will help to inspire hard work that will help you achieve both your short-term and long-term goals.",
+      "buttonicon": "far fa-handshake",
+      "buttontext": "Get Started"
+    },
+    {
+      "id": "1002",
+      "image": "carousel-3.jpg",
+      "headline": "Your Business Our Effort",
+      "description": "It’s true, that we can be a big help as you work toward business success. Indeed, we will provides a lot of solutions, tools can take you a long way.",
+      "buttonicon": "fas fa-poll",
+      "buttontext": "Result"
+    }
+  ]
+}

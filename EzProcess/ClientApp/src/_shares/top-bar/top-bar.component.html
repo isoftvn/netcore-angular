@@ -1,0 +1,29 @@
+<div class="d-sm-block">
+  <div class="top-bar ">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <div class="top-bar-left">
+            <div class="text">
+              <a href="tel:+84858540560"><i class="fa fa-phone-alt"></i></a>&nbsp;
+              <h2 class="d-none d-sm-block">+84 858 540 560</h2>
+              <p class="d-none d-md-block">For Appointment</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="top-bar-right">
+            <div class="social">
+              <a href="https://www.facebook.com/ezprocess.net/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.linkedin.com/in/isoftvn/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+              <a *ngIf="!isUserLoggedIn" pTooltip="Login" [routerLink]="['/login']" href="javascript:;"><i
+                  class="fas fa-sign-in-alt"></i></a>
+              <a *ngIf="isUserLoggedIn" class="nav-link" pTooltip="Logout" (click)="logout()" href="javascript:;"><i
+                  class="fas fa-sign-out-alt"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

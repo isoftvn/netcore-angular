@@ -1,0 +1,84 @@
+<div>
+    <form *ngIf="formResetToggle" name="roleEditorForm" #f="ngForm" novalidate
+        (ngSubmit)="f.form.valid ? save() :
+          (!roleName.valid && showErrorAlert('Role name is required', 'Please enter a role name (minimum of 2 and maximum of 200 characters)'));">
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="form-group row has-feedback-icon">
+                    <label class="col-form-label col-md-3" for="roleName">Name</label>
+                    <div class="col-md-9">
+                        <input [disabled]="!canManageRoles" type="text" id="roleName" name="roleName"
+                            placeholder="Enter role name" class="form-control"
+                            [ngClass]="{'is-valid': f.submitted && roleName.valid}" [(ngModel)]="roleEdit.name"
+                            #roleName="ngModel" required minlength="2" maxlength="200" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="form-group row">
+                    <label class="col-form-label col-md-3" for="roleDescription">Description</label>
+                    <div class="col-md-9">
+                        <input [disabled]="!canManageRoles" type="text" id="roleDescription" name="roleDescription"
+                            placeholder="Enter role description" class="form-control"
+                            [(ngModel)]="roleEdit.description" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr class="edit-separator-hr" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 card card-body bg-light well-sm permissionsRow">
+                <div class="row">
+                    <ng-template ngFor let-permissionGroup [ngForOf]="allPermissions | groupBy: 'groupName'"
+                        let-i="index">
+                        <div class="form-group row col-sm-6 permissionsColumn">
+                            <label class="col-md-5 col-form-label group-name" for="checkboxes"
+                                (click)="toggleGroup(permissionGroup.key)">{{permissionGroup.key}}</label>
+                            <div class="col-md-7">
+                                <div class="form-check" *ngFor="let permission of permissionGroup.value">
+                                    <input [disabled]="!canManageRoles" name="checkboxes-{{permission.value}}"
+                                        id="checkboxes-{{permission.value}}" type="checkbox" class="form-check-input"
+                                        [(ngModel)]="selectedValues[permission.value]">
+                                    <label class="form-check-label"
+                                        for="checkboxes-{{permission.value}}">{{permission.name}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="(i + 1) % 2 === 0" class="clearfix"></div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr class="edit-last-separator-hr" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-5">
+                <div *ngIf="canManageRoles" class="float-left">
+                    <button type="button" (click)="selectAll()" label="Select All" pButton pRipple
+                        class="p-button-rounded p-button-raised p-button-text"></button>
+                    <button type="button" (click)="selectNone()" label="Select None" pButton pRipple
+                        class="p-button-rounded p-button-raised p-button-text ml-10px"></button>
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <button *ngIf="canManageRoles" type="submit" class="btn btn-primary float-right" [disabled]="isSaving">
+                    <i *ngIf="!isSaving" class='fa fa-save'></i><i *ngIf="isSaving"
+                        class='fa fa-circle-o-notch fa-spin'></i> {{isSaving
+                    ? 'Saving' : 'Save'}}
+                </button>
+                <button *ngIf="!canManageRoles" type="button" (click)="cancel()"
+                    class="btn btn-outline-secondary float-right">Close</button>
+                <button *ngIf="canManageRoles" type="button" (click)="cancel()" class="btn btn-danger float-right"
+                    [disabled]="isSaving"><i class='fa fa-times'></i> Cancel</button>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </form>
+</div>

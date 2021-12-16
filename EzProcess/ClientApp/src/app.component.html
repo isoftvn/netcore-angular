@@ -1,0 +1,23 @@
+<main class="app-component">
+  <router-outlet></router-outlet>
+</main>
+<footer class="footer" [ngClass]="isFixedFooterPage()">
+  <div class="footer">
+    <div class="container copyright">
+      <div class="row">
+        <div class="col-md-6 sol-sm-12">
+
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <p>&copy; {{getYear()}} <a href="https://www.ezprocess.net">EzProcess Solutions</a>, All Right Reserved.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="fixed-bottom text-right text-muted">
+  <div class="pr-1"><small>Version: {{version}}</small></div>
+</div>
+<p-toast></p-toast>
+<p-confirmPopup></p-confirmPopup>
+<ezp-loading></ezp-loading>

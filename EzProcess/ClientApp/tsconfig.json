@@ -1,0 +1,58 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "moduleResolution": "node",
+    "paths": {
+      "@shares/*": [
+        "src/_shares/*"
+      ],
+      "@services/*": [
+        "src/_services/*"
+      ],
+      "@models/*": [
+        "src/_models/*"
+      ],
+      "@helpers/*": [
+        "src/_helpers/*"
+      ],
+      "@directives/*": [
+        "src/_directives/*"
+      ],
+      "@pipes/*": [
+        "src/_pipes/*"
+      ],
+      "@home/*": [
+        "src/modules/home/*"
+      ],
+      "@admin/*": [
+        "src/modules/admin/*"
+      ]
+    },
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "noImplicitReturns": false,
+    "noImplicitAny": false,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": false,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

@@ -1,0 +1,80 @@
+<div>
+    <div class="row control-box">
+        <div class="col-md-12">
+            <div class="form-group search-box">
+                <ezp-search-box (searchChange)="onSearchChanged($event)" placeholder="Search...">></ezp-search-box>
+            </div>
+        </div>
+    </div>
+    <p-table [value]="rows" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-responsive-swap-column">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+            <tr>
+                <td>
+                    <span class="p-column-title">{{columns[0].header}}</span>
+                    {{row.jobTitle}}
+                </td>
+                <td>
+                    <span class="p-column-title">{{columns[1].header}}</span>
+                    {{row.jobTitle}}
+                </td>
+                <td>
+                    <span class="p-column-title">{{columns[2].header}}</span>
+                    {{row.fullName}}
+                </td>
+                <td>
+                    <span class="p-column-title">{{columns[3].header}}</span>
+                    {{row.email}}
+                </td>
+                <td>
+                    <span class="p-column-title">{{columns[4].header}}</span>
+                    <span *ngFor="let role of row.roles">
+                        <p-badge styleClass="ml-5px mb-2px" value="{{role}}"></p-badge>
+                    </span>
+                </td>
+                <td>
+                    <span class="p-column-title">{{columns[5].header}}</span>
+                    {{row.phoneNumber}}
+                </td>
+                <td>
+                    <span *ngIf="canApproveArticle || canSettingsNews"
+                        class="p-column-title">{{columns[6].header}}</span>
+                    <div *ngIf="canApproveArticle || canSettingsNews">
+                        <span class="p-buttonset">
+                            <button *ngIf="canApproveArticle" (click)="approveArticle(row)" pButton pRipple
+                                class="p-button-sm p-button-link" icon="fas fa-pencil"></button>
+                            <button *ngIf="canSettingsNews" (click)="editArticle(row)" pButton pRipple
+                                class="p-button-sm p-button-link" icon="fas fa-pencil"></button>
+                            <button *ngIf="canSettingsNews" (click)="deleteArticle($event, row)" pButton pRipple
+                                class="p-button-sm p-button-link" icon="fas fa-trash"></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+            <p-button *ngIf="canPostArticle" (click)="newArticle()" label="New Article" icon="fas fa-file-alt"
+                styleClass="p-button-sm p-button-rounded"></p-button>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="showPostArticleModal" styleClass="col-12 col-sm-10" [blockScroll]="true" [modal]="true"
+    closeIcon="fas fa-times">
+    <ng-template pTemplate="header">
+        <h4 *ngIf="!editingArticleName" class="modal-title float-left"><i class="fa fa-user-plus"></i>
+            New Article</h4>
+        <h4 *ngIf="editingArticleName" class="modal-title float-left"><i class="fa fa-user-circle-o"></i>
+            Edit {{editingArticleName}}</h4>
+    </ng-template>
+    <ezp-post-article #postArticleComponent (closeEvent)="closeEvent($event)">
+    </ezp-post-article>
+</p-dialog>

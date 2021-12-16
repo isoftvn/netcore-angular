@@ -1,0 +1,60 @@
+<div>
+    <div class="row control-box">
+        <div class="col-md-12">
+            <div class="form-group search-box">
+                <ezp-search-box (searchChange)="onSearchChanged($event)" placeholder="Search..."></ezp-search-box>
+            </div>
+        </div>
+    </div>
+    <p-table [value]="rows" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-responsive-swap-column">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+            <tr>
+                <td>
+                    <span class="p-column-title">{{columns[0].header}}</span>
+                    {{row.name}}
+                </td>
+                <td>
+                    <span class="p-column-title">{{columns[1].header}}</span>
+                    {{row.description}}
+                </td>
+                <td>
+                    <span class="p-column-title">{{columns[2].header}}</span>
+                    {{row.usersCount}}
+                </td>
+                <td>
+                    <span *ngIf="canManageRoles" class="p-column-title">{{columns[3].header}}</span>
+                    <div *ngIf="canManageRoles">
+                        <span class="p-buttonset">
+                            <button (click)="editRole(row)" pButton pRipple class="p-button-sm p-button-link"
+                                icon="fas fa-pencil"></button>
+                            <button (click)="deleteRole($event, row)" pButton pRipple class="p-button-sm p-button-link"
+                                icon="fas fa-trash"></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+            <p-button *ngIf="canManageRoles" (click)="newRole()" label="New Role" icon="fas fa-layer-plus"
+                styleClass="p-button-sm p-button-rounded"></p-button>
+        </ng-template>
+    </p-table>
+</div>
+<p-dialog [(visible)]="editingRoleModal" styleClass="col-lg-7 col-md-9 col-sm-11" [blockScroll]="true" [modal]="true">
+    <ng-template pTemplate="header">
+        <h4 *ngIf="!editingRoleName" class="modal-title float-left"><i class="fa fa-user-plus"></i>
+            New Role</h4>
+        <h4 *ngIf="editingRoleName" class="modal-title float-left"><i class="fa fa-user-circle-o"></i>
+            Edit Role</h4>
+    </ng-template>
+    <ezp-role-editor #roleEditor (closeEvent)="closeEvent($event)"></ezp-role-editor>
+</p-dialog>

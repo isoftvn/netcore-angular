@@ -1,0 +1,79 @@
+<div>
+    <div class="row control-box">
+        <div class="col-md-12">
+            <div class="form-group search-box">
+                <ezp-search-box (searchChange)="onSearchChanged($event)" placeholder="Search..."></ezp-search-box>
+            </div>
+        </div>
+    </div>
+    <p-table [value]="rows" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-responsive-swap-column">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+            <tr>
+                <td>
+                    <span class="p-column-title">{{columns[0].header}}</span>
+                    {{row.jobTitle}}
+                </td>
+                <td>
+                    <span class="p-column-title">{{columns[1].header}}</span>
+                    <span [class.locked-out]="row.isLockedOut" [class.user-disabled]="!row.isEnabled">
+                        <i *ngIf="row.isLockedOut" class="fa fa-exclamation-triangle"> </i>
+                        <i *ngIf="!row.isEnabled" class="fa fa-exclamation"> </i>
+                        {{row.userName}}
+                    </span>
+                </td>
+                <td>
+                    <span class="p-column-title">{{columns[2].header}}</span>
+                    {{row.fullName}}
+                </td>
+                <td>
+                    <span class="p-column-title">{{columns[3].header}}</span>
+                    {{row.email}}
+                </td>
+                <td>
+                    <span class="p-column-title">{{columns[4].header}}</span>
+                    <span *ngFor="let role of row.roles">
+                        <p-badge styleClass="ml-5px mb-2px" value="{{role}}"></p-badge>
+                    </span>
+                </td>
+                <td>
+                    <span class="p-column-title">{{columns[5].header}}</span>
+                    {{row.phoneNumber}}
+                </td>
+                <td>
+                    <span *ngIf="canManageUsers" class="p-column-title">{{columns[6].header}}</span>
+                    <div *ngIf="canManageUsers">
+                        <span class="p-buttonset">
+                            <button (click)="editUser(row)" pButton pRipple class="p-button-sm p-button-link"
+                                icon="fas fa-pencil"></button>
+                            <button (click)="deleteUser($event, row)" pButton pRipple class="p-button-sm p-button-link"
+                                icon="fas fa-trash"></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+            <p-button *ngIf="canManageUsers && canAssignRoles" (click)="newUser()" label="New User"
+                icon="fas fa-user-plus" styleClass="p-button-sm p-button-rounded"></p-button>
+        </ng-template>
+    </p-table>
+</div>
+<p-dialog [(visible)]="editingUserModal" styleClass="col-lg-7 col-md-9 col-sm-11" [blockScroll]="true" [modal]="true">
+    <ng-template pTemplate="header">
+        <h4 *ngIf="!editingUserName" class="modal-title float-left"><i class="fa fa-user-plus"></i>
+            New User</h4>
+        <h4 *ngIf="editingUserName" class="modal-title float-left"><i class="fa fa-user-circle-o"></i>
+            Edit User</h4>
+    </ng-template>
+    <ezp-user-info #userEditor [isGeneralEditor]="true" [reloadEvent]="reloadProfile" (closeEvent)="closeEvent($event)">
+    </ezp-user-info>
+</p-dialog>

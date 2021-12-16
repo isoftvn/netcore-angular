@@ -1,0 +1,8 @@
+{
+  "version": "#{EZP.Version}",
+  "hash": "#{EZP.POST_BUILD_HASH}",
+  "buildDate": "#{EZP.BuildDate}",
+  "releaseNotes": "#{Octopus.Release.Notes}",
+  "copyright": "© 2021 EzProcess Solutions, LLC.",
+  "contributor": "isoftvn@gmail.com"
+}

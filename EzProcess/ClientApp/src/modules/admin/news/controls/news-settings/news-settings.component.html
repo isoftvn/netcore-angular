@@ -1,0 +1,124 @@
+<div class="row">
+    <div class="col-md-4 col-lg-2">
+        <p-menu [@fadeInOut] [model]="menuItems" styleClass="col-12 px-0 mx-0">
+        </p-menu>
+    </div>
+    <div class="col-md-8 col-lg-10 px-0 mx-0">
+        <p-table *ngIf="showSubTab == 'Categories'" [value]="categories" [paginator]="true" [rows]="10"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-responsive-swap-column">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let col of categoryColumns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+                <tr>
+                    <td>
+                        <span class="p-column-title">{{categoryColumns[0].header}}</span>
+                        {{row.categoryName}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">{{categoryColumns[1].header}}</span>
+                        {{row.description}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">{{categoryColumns[2].header}}</span>
+                        <button *ngIf="row.isDeleted" pButton pRipple type="button" icon="fas fa-times"
+                            class="p-button-rounded p-button-danger p-button-text"></button>
+                    </td>
+                    <td>
+                        <span class="p-column-title">{{categoryColumns[3].header}}</span>
+                        {{row.parentCategoryName}}
+                    </td>
+                    <td>
+                        <div *ngIf="hasSettingPermission">
+                            <span class="p-buttonset">
+                                <button (click)="editCategoryItem(row)" pButton pRipple
+                                    class="p-button-sm p-button-link" icon="fas fa-pencil"></button>
+                                <button (click)="deleteCategoryItem($event, row)" pButton pRipple
+                                    class="p-button-sm p-button-link" icon="fas fa-trash"></button>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="paginatorleft">
+                <p-button (click)="newCategoryItem()" label="New Category" icon="fas fa-list-alt"
+                    styleClass="p-button-sm p-button-rounded"></p-button>
+            </ng-template>
+        </p-table>
+        <p-table *ngIf="showSubTab == 'Tags'" [value]="tags" [paginator]="true" [rows]="10"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-responsive-swap-column">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let col of tagColumns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+                <tr>
+                    <td>
+                        <span class="p-column-title">{{tagColumns[0].header}}</span>
+                        {{row.tagName}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">{{tagColumns[1].header}}</span>
+                        {{row.createdBy}}
+                    </td>
+                    <td>
+                        <span class="p-column-title">{{tagColumns[2].header}}</span>
+                        {{row.createdDate | date:'dd/MM/yyyy hh:mm'}}
+                    </td>
+                    <td>
+                        <div *ngIf="hasSettingPermission">
+                            <span class="p-buttonset">
+                                <button (click)="editTagItem(row)" pButton pRipple class="p-button-sm p-button-link"
+                                    icon="fas fa-pencil"></button>
+                                <button (click)="deleteTagItem($event, row)" pButton pRipple
+                                    class="p-button-sm p-button-link" icon="fas fa-trash"></button>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="paginatorleft">
+                <p-button (click)="newTagItem()" label="New Tag" icon="fas fa-tags"
+                    styleClass="p-button-sm p-button-rounded"></p-button>
+            </ng-template>
+        </p-table>
+        <div *ngIf="showSubTab == 'Others'">
+            Other settings
+        </div>
+    </div>
+</div>
+
+<p-dialog [(visible)]="showAddCategoryModal" styleClass="col-lg-6 col-md-8 col-xs-12 col-12" [blockScroll]="true"
+    [modal]="true" closeIcon="fas fa-times">
+    <ng-template pTemplate="header">
+        <h4 *ngIf="!editingCategoryName" class="modal-title float-left"><i class="fas fa-list-alt"></i>
+            New Category</h4>
+        <h4 *ngIf="editingCategoryName" class="modal-title float-left"><i class="fas fa-list-alt"></i>
+            Edit {{editingCategoryName}}</h4>
+    </ng-template>
+    <ezp-add-category #addCategoryComponent (closeEvent)="closeCategoryModalEvent($event)">
+    </ezp-add-category>
+</p-dialog>
+
+<p-dialog [(visible)]="showAddTagModal" styleClass="col-lg-4 col-md-6 col-xs-10 col-12" [blockScroll]="true"
+    [modal]="true" closeIcon="fas fa-times">
+    <ng-template pTemplate="header">
+        <h4 *ngIf="!editingTagName" class="modal-title float-left"><i class="fas fa-tags"></i>
+            New Tag</h4>
+        <h4 *ngIf="editingTagName" class="modal-title float-left"><i class="fas fa-tags"></i>
+            Edit {{editingTagName}}</h4>
+    </ng-template>
+    <ezp-add-tag #addTagComponent (closeEvent)="closeTagModalEvent($event)">
+    </ezp-add-tag>
+</p-dialog>

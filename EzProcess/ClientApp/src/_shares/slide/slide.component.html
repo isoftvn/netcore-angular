@@ -1,0 +1,29 @@
+<div class="carousel">
+  <style type="text/css">#carousel{display:block;position:absolute;top:50%;left:50%;height:50px;width:50px;margin:-25px 0 0 -25px}#carousel span{position:absolute;width:10px;height:10px;background:rgba(0,0,0,.25);border-radius:50%;-webkit-animation:dots5 1s infinite ease-in-out;animation:dots5 1s infinite ease-in-out}#carousel span:nth-child(1){left:0;-webkit-animation-delay:0.2s;animation-delay:0.2s}#carousel span:nth-child(2){left:15px;-webkit-animation-delay:0.3s;animation-delay:0.3s}#carousel span:nth-child(3){left:30px;-webkit-animation-delay:0.4s;animation-delay:0.4s}#carousel span:nth-child(4){left:45px;-webkit-animation-delay:0.5s;animation-delay:0.5s}@keyframes dots5{0%{-webkit-transform:translateY(0);transform:translateY(0);-webkit-transform:translateY(0);transform:translateY(0);background:#d62d20}25%{-webkit-transform:translateY(10px);transform:translateY(10px);-webkit-transform:translateY(10px);transform:translateY(10px);background:#ffa700}50%{-webkit-transform:translateY(10px);transform:translateY(10px);-webkit-transform:translateY(10px);transform:translateY(10px);background:#008744}100%{-webkit-transform:translateY(0);transform:translateY(0);-webkit-transform:translateY(0);transform:translateY(0);background:#0057e7}}@-webkit-keyframes dots5{0%{-webkit-transform:translateY(0);transform:translateY(0);background:#d62d20}25%{-webkit-transform:translateY(10px);transform:translateY(10px);background:#ffa700}50%{-webkit-transform:translateY(10px);transform:translateY(10px);background:#008744}100%{-webkit-transform:translateY(0);transform:translateY(0);background:#0057e7}}</style>
+  <div *ngIf="slideIsLoading" id="carousel">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <owl-carousel-o [options]="customOptions" (initialized)="getData($event)">
+    <ng-container *ngFor="let slide of slides">
+      <ng-template carouselSlide [id]="slide.id">
+        <div class="carousel-item">
+          <div class="carousel-img">
+            <img [src]="getImageUrl(slide)" alt="">
+          </div>
+          <div class="carousel-text">
+            <h1>{{slide.headline}}</h1>
+            <p>
+              {{slide.description}}
+            </p>
+            <div *ngIf="slide.buttontext" class="carousel-btn">
+              <a class="btn" href=""><i *ngIf="slide.buttonicon" class="{{slide.buttonicon}}"></i>{{slide.buttontext}}</a>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </owl-carousel-o>
+</div>

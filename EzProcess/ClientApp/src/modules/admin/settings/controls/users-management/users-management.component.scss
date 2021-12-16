@@ -1,0 +1,70 @@
+.user-role {
+    font-size: 0.8em !important;
+    margin-right: 1px;
+}
+
+.control-box {
+    margin-bottom: 5px;
+}
+
+.search-box {
+    margin: 0;
+}
+
+.nav-item.toolbaritem a {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    min-width: 100px;
+}
+
+.user-disabled {
+    color: #777;
+    font-style: italic;
+}
+
+.locked-out {
+    background-color: orangered;
+    color: whitesmoke;
+    width: 100%;
+    display: inline-block;
+    padding-left: 5px;
+}
+:host ::ng-deep {
+    .p-datatable-responsive-swap-column .p-datatable-tbody > tr > td .p-column-title {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 60rem) {
+    :host ::ng-deep {
+        .p-datatable {
+            &.p-datatable-responsive-swap-column {
+                .p-datatable-thead > tr > th,
+                .p-datatable-tfoot > tr > td {
+                    display: none !important;
+                }
+
+                .p-datatable-tbody > tr > td {
+                    text-align: left;
+                    display: block;
+                    width: 100%;
+                    float: left;
+                    clear: left;
+                    border: 0 none;
+
+                    .p-column-title {
+                        padding: 0.4rem;
+                        min-width: 30%;
+                        display: inline-block;
+                        margin: -0.4em 1em -0.4em -0.4rem;
+                        font-weight: bold;
+                    }
+
+                    &:last-child {
+                        border-bottom: 1px solid var(--surface-d);
+                    }
+                }
+            }
+        }
+    }
+}

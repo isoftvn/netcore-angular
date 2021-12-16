@@ -1,0 +1,9 @@
+<div class="search-box">
+    <span class="p-input-icon-left search-input">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" class="search-input" #searchInput pInputText [(ngModel)]="keyword"
+            (ngModelChange)="onValueChange($event)" placeholder="Search">
+    </span>
+    <a *ngIf="searchInput.value" href="javascript:;" title="Clear" (click)="clear()"
+        class="fa fa-times-circle clear-input right-icon"></a>
+</div>

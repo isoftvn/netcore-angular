@@ -1,0 +1,32 @@
+<ezp-top-bar></ezp-top-bar>
+<div class="container-fluid admin-container px-0">
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        <div class="side-bar-container">
+            <ezp-admin-side-bar></ezp-admin-side-bar>
+        </div>
+        <!-- Page content wrapper-->
+        <div id="page-content-wrapper">
+            <!-- Top navigation-->
+            <ezp-admin-nav-bar></ezp-admin-nav-bar>
+            <!-- Page content-->
+            <div class="container-fluid">
+                <div [@fadeInOut] class="card mt-2">
+                    <p-tabView [(activeIndex)]="activeIndex" (onChange)="tabViewChange($event)">
+                        <p-tabPanel header="Profile" leftIcon="fas fa-user-shield">
+                            <ezp-user-info [reloadEvent]="reloadProfile"></ezp-user-info>
+                        </p-tabPanel>
+                        <p-tabPanel *ngIf="canViewUsers" header="Users" leftIcon="fas fa-users">
+                            <ezp-users-management (requireReload)="requireReloadEvent($event)"
+                                [reloadEvent]="reloadUsers"></ezp-users-management>
+                        </p-tabPanel>
+                        <p-tabPanel *ngIf="canViewRoles" header="Roles" leftIcon="fas fa-sitemap">
+                            <ezp-roles-management (requireReload)="requireReloadEvent($event)"
+                                [reloadEvent]="reloadRoles"></ezp-roles-management>
+                        </p-tabPanel>
+                    </p-tabView>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div *ngIf="showSideBar" class="border-end" id="sidebar-wrapper" [@hideShowAnimator]="showSideBar">
+    <div class="sidebar-heading text-center">EzProcess</div>
+    <div class="list-group list-group-flush">
+        <a class="list-group-item" href="javascript:;" [routerLinkActive]="['active']"
+            [routerLink]="['/admin/dashboard']">Dashboard</a>
+        <a *ngIf="hasNewsPermission" class="list-group-item" href="javascript:;" [routerLinkActive]="['active']"
+            [routerLink]="['/admin/news']">News</a>
+        <!-- <a class="list-group-item" href="javascript:;" [routerLinkActive]="['active']"
+            [routerLink]="['/admin/files']">File Manager</a> -->
+        <a class="list-group-item" href="javascript:;" [routerLinkActive]="['active']"
+            [routerLink]="['/admin/settings']">Settings</a>
+    </div>
+</div>

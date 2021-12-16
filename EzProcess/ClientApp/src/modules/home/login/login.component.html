@@ -1,0 +1,36 @@
+<ezp-top-bar></ezp-top-bar>
+<ezp-nav-bar></ezp-nav-bar>
+<div class="wrapper">
+    <div class="container">
+        <div class="col-left">
+            <div class="login-text">
+                <p>
+                    {{todayQuotes}}
+                </p>
+            </div>
+        </div>
+        <div class="col-right">
+            <div class="login-form">
+                <h2>Login</h2>
+                <form name="loginForm" #f="ngForm" novalidate
+                    (ngSubmit)="f.form.valid ? login() : showLoginValidation(username.valid, password.valid)">
+                    <p>
+                        <input type="text" pTooltip="Enter your username" maxlength="32" name="username"
+                            [(ngModel)]="userLogin.userName" #username="ngModel" placeholder="Username" required>
+                    </p>
+                    <p>
+                        <input type="password" pTooltip="Enter your password" maxlength="32" name="password"
+                            [(ngModel)]="userLogin.password" #password="ngModel" placeholder="Password" required>
+                    </p>
+                    <p>
+                        <button class="btn" type="submit"><i *ngIf="isLoading" class='fa fa-circle-o-notch fa-spin'></i>
+                            {{isLoading ? 'Logging in...' : 'Login'}}</button>
+                    </p>
+                    <p>
+                        <a href="">Forget password?</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+.search-box {
+    position: relative;
+}
+.search-input {
+    width: 100% !important;
+}
+.clear-input {
+    text-decoration: none !important;
+    color: #b3b3b3 !important;
+}
+
+.clear-input:hover {
+    color: #2580db !important;
+}
+.right-icon {
+    position: absolute;
+    top: 0.9rem;
+    right: 1rem;
+}
